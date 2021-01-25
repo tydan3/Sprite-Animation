@@ -3,11 +3,13 @@
 class GameEngine {
     constructor() {
         this.entities = [];
-        this.showOutlines = false;
         this.ctx = null;
-        this.click = null;
-        this.mouse = null;
-        this.wheel = null;
+
+        this.left = false;
+        this.right = false;
+        this.facingRight = true;
+        this.z = false;
+
         this.surfaceWidth = null;
         this.surfaceHeight = null;
     };
@@ -22,6 +24,7 @@ class GameEngine {
 
     start() {
         var that = this;
+
         (function gameLoop() {
             that.loop();
             requestAnimFrame(gameLoop, that.ctx.canvas);
@@ -36,30 +39,41 @@ class GameEngine {
             var y = e.clientY - that.ctx.canvas.getBoundingClientRect().top;
 
             return { x: x, y: y };
-        }
+        };
 
-        this.ctx.canvas.addEventListener("mousemove", function (e) {
-            //console.log(getXandY(e));
-            that.mouse = getXandY(e);
+        this.ctx.canvas.addEventListener("keydown", function (e) {
+            console.log(e.code);
+            switch (e.code) {
+                case "ArrowLeft":
+                    that.left = true;
+                    break;
+                case "ArrowRight":
+                    that.right = true;
+                    break;
+                case "KeyZ":
+                    that.z = true;
+                    break;
+            }
         }, false);
 
-        this.ctx.canvas.addEventListener("click", function (e) {
-            //console.log(getXandY(e));
-            that.click = getXandY(e);
+        this.ctx.canvas.addEventListener("keyup", function (e) {
+            console.log(e.code);
+            switch (e.code) {
+                case "ArrowLeft":
+                    that.left = false;
+                    that.facingRight = false;
+                    break;
+                case "ArrowRight":
+                    that.right = false;
+                    that.facingRight = true;
+                    break;
+                case "KeyZ":
+                    that.z = false;
+                    break;
+            }
         }, false);
 
-        this.ctx.canvas.addEventListener("wheel", function (e) {
-            //console.log(getXandY(e));
-            that.wheel = e;
-            //       console.log(e.wheelDelta);
-            e.preventDefault();
-        }, false);
 
-        this.ctx.canvas.addEventListener("contextmenu", function (e) {
-            //console.log(getXandY(e));
-            that.rightclick = getXandY(e);
-            e.preventDefault();
-        }, false);
     };
 
     addEntity(entity) {

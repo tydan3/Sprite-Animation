@@ -1,7 +1,9 @@
 class Animator {
     
-    constructor(spritesheet, xStart, yStart, width, height, frameCount, frameDuration, framePadding, reverse, loop) {
-        Object.assign(this, { spritesheet, xStart, yStart, height, width, frameCount, frameDuration, framePadding, reverse, loop });
+    constructor(spritesheet, xStart, yStart, width, height, frameCount, frameDuration,
+        framePadding, reverse, loop) {
+        Object.assign(this, { spritesheet, xStart, yStart, height, width, frameCount,
+            frameDuration, framePadding, reverse, loop });
 
         this.elapsedTime = 0;
         this.totalTime = this.frameCount * this.frameDuration;
@@ -16,7 +18,7 @@ class Animator {
             if (this.loop) {
                 this.elapsedTime -= this.totalTime;
             } else {
-                return; // watch video 9 - 13:50
+                return;
             }
         }
 
