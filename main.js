@@ -6,6 +6,7 @@ ASSET_MANAGER.queueDownload("./martial-hero/Sprites/sheet.png");
 ASSET_MANAGER.downloadAll(function () {
 	var canvas = document.getElementById('gameWorld');
 	var ctx = canvas.getContext('2d');
+	ctx.imageSmoothingEnabled = false;
 
 	gameEngine.init(ctx);
 	gameEngine.addEntity(new MartialHero(gameEngine, 0, 0));
