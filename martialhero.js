@@ -61,8 +61,8 @@ class MartialHero {
     }
 
     draw(ctx) {
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, 220, 2);
-        this.animations[0][1].drawFrame(this.game.clockTick, ctx, 600, 220, 2);
+        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, 280, 2);
+        this.animations[0][1].drawFrame(this.game.clockTick, ctx, 810, 280, 2);
 
     }
 }
