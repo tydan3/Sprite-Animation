@@ -7,7 +7,7 @@ class GameEngine {
 
         this.left = false;
         this.right = false;
-        this.facingRight = true;
+        this.facingLeft = false;
         this.z = false;
 
         this.surfaceWidth = null;
@@ -46,12 +46,15 @@ class GameEngine {
             switch (e.code) {
                 case "ArrowLeft":
                     that.left = true;
+                    that.facingLeft = true;
                     break;
                 case "ArrowRight":
                     that.right = true;
+                    that.facingLeft = false;
                     break;
                 case "KeyZ":
                     that.z = true;
+                    that.facingLeft = false;
                     break;
             }
         }, false);
@@ -61,11 +64,9 @@ class GameEngine {
             switch (e.code) {
                 case "ArrowLeft":
                     that.left = false;
-                    that.facingRight = false;
                     break;
                 case "ArrowRight":
                     that.right = false;
-                    that.facingRight = true;
                     break;
                 case "KeyZ":
                     that.z = false;

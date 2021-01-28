@@ -1,6 +1,6 @@
 class MartialHero {
-    constructor(game, x, y) {
-        Object.assign(this, {game, x, y});
+    constructor(game, x, y, dummy) {
+        Object.assign(this, {game, x, y, dummy});
 
         // spritesheet
         this.spritesheet = ASSET_MANAGER.getAsset("./martial-hero/Sprites/sheet.png");
@@ -52,7 +52,9 @@ class MartialHero {
             this.state = 1;
             this.facing = 1;
             this.x -= SPEED;
-
+        } else if (this.game.facingLeft) {
+            this.state = 0;
+            this.facing = 1;
         } else {
             this.state = 0;
             this.facing = 0;
@@ -61,8 +63,11 @@ class MartialHero {
     }
 
     draw(ctx) {
-        this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, 280, 2);
-        this.animations[0][1].drawFrame(this.game.clockTick, ctx, 810, 280, 2);
+        if (this.dummy) {
+            this.animations[0][1].drawFrame(this.game.clockTick, ctx, 810, 280, 2);
 
+        } else {
+            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, 280, 2);
+        }
     }
 }
