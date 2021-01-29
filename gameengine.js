@@ -54,7 +54,6 @@ class GameEngine {
                     break;
                 case "KeyZ":
                     that.z = true;
-                    that.facingLeft = false;
                     break;
             }
         }, false);

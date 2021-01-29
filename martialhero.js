@@ -8,7 +8,8 @@ class MartialHero {
         // state variables
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = running, 2 = attack, 3 = die
-        this.attackTicks = 0;
+        this.rightAttackTicks = 0;
+        this.leftAttackTicks = 0;
 
         // hero's animations
         this.animations = [];
@@ -34,23 +35,31 @@ class MartialHero {
             true);                
         this.animations[2][0] = new Animator(this.spritesheet, 70, 42, 120, 80, 6, 0.075, 80, false,
             true);
-        this.animations[2][1] = new Animator(this.spritesheet, 10, 242, 120, 80, 6, 0.07, 80, true,
+        this.animations[2][1] = new Animator(this.spritesheet, 10, 242, 120, 80, 6, 0.075, 80, true,
             true);
     }
 
     update() {
         const SPEED = 4
         
-        if (this.attackTicks > 1) {
+        if (this.rightAttackTicks > 1) {
             this.state = 2;
             this.facing = 0;
-            this.attackTicks--;
-            console.log(this.attackTicks);
-        } else if (this.game.z) {
+            this.rightAttackTicks--;
+        } else if (this.leftAttackTicks > 1) {
+            this.state = 2;
+            this.facing = 1;
+            this.leftAttackTicks--;
+
+        } else if (this.game.z && !this.game.facingLeft) {
             this.state = 2;
             this.facing = 0;
-            this.attackTicks = 27;
-            console.log(this.attackTicks);
+            this.rightAttackTicks = 27;
+        } else if (this.game.z && this.game.facingLeft) {
+            this.state = 2;
+            this.facing = 1;
+            this.leftAttackTicks = 27;
+
         } else if (this.game.right) {
             this.state = 1;
             this.facing = 0;
@@ -74,7 +83,11 @@ class MartialHero {
             this.animations[0][1].drawFrame(this.game.clockTick, ctx, 810, 280, 2);
 
         } else {
-            this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, 280, 2);
+            if (this.state == 2 && this.facing == 1) { // left attack
+                this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x - 120, 280, 2); // x offset
+            } else {
+                this.animations[this.state][this.facing].drawFrame(this.game.clockTick, ctx, this.x, 280, 2);
+            }
         }
     }
 }
