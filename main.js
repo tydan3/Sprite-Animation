@@ -12,8 +12,8 @@ ASSET_MANAGER.downloadAll(function () {
 
 	gameEngine.init(ctx);
 	gameEngine.addEntity(new Background(gameEngine));
-	gameEngine.addEntity(new MartialHero(gameEngine, 0, 0, false));
 	gameEngine.addEntity(new MartialHero(gameEngine, 0, 0, true));
+	gameEngine.addEntity(new MartialHero(gameEngine, 0, 0, false));
 	gameEngine.addEntity(new Foreground(gameEngine));
 	gameEngine.start();
 });

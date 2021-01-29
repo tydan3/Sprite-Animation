@@ -8,6 +8,7 @@ class MartialHero {
         // state variables
         this.facing = 0; // 0 = right, 1 = left
         this.state = 0; // 0 = idle, 1 = running, 2 = attack, 3 = die
+        this.attackTicks = 0;
 
         // hero's animations
         this.animations = [];
@@ -31,19 +32,25 @@ class MartialHero {
             true);
         this.animations[1][1] = new Animator(this.spritesheet, 70, 1042, 120, 80, 8, 0.1, 80, true,
             true);                
-        this.animations[2][0] = new Animator(this.spritesheet, 70, 42, 120, 80, 6, 0.07, 80, false,
+        this.animations[2][0] = new Animator(this.spritesheet, 70, 42, 120, 80, 6, 0.075, 80, false,
             true);
         this.animations[2][1] = new Animator(this.spritesheet, 10, 242, 120, 80, 6, 0.07, 80, true,
             true);
     }
 
     update() {
-        const TICK = this.game.clockTick;
         const SPEED = 4
-    
-        if (this.game.z) {
+        
+        if (this.attackTicks > 1) {
             this.state = 2;
             this.facing = 0;
+            this.attackTicks--;
+            console.log(this.attackTicks);
+        } else if (this.game.z) {
+            this.state = 2;
+            this.facing = 0;
+            this.attackTicks = 27;
+            console.log(this.attackTicks);
         } else if (this.game.right) {
             this.state = 1;
             this.facing = 0;
